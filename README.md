@@ -2,6 +2,14 @@
 
 10-in-1 Arcade firmware for the **M-VAVE FM-1** pocket synthesizer, built on [Dinghy](https://github.com/zvenson/dinghy) (Felucca / SLOOP platform).
 
+![FM-1 Arcade on Real Hardware](photos/fm1-arcade-demo.gif)
+
+## On Real Hardware
+
+| Arcade Menu | OutRun Title | OutRun Gameplay |
+| :---: | :---: | :---: |
+| ![Menu](photos/menu.gif) | ![OutRun Title](photos/outrun-title.gif) | ![OutRun Play](photos/outrun-play.gif) |
+
 ## Games Included
 
 1. **Snake** — 19×17 grid, directional eyes, progressive speed, chiptune SFX, persistent high score.
