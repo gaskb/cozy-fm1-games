@@ -114,6 +114,9 @@ static void arcade_update_leds(uint8_t game)
         }
     }
 
+#ifndef FM1_NBTN
+#define FM1_NBTN 14u
+#endif
     for (i = 0u; i < FM1_NBTN; i++) {
         if (i == BTN_PLAY) continue;
         fm1_led_key(i, (btn_mask & (1u << i)) ? 1 : 0);
