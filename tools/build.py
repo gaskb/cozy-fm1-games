@@ -318,13 +318,17 @@ def main():
         BOARD_DEFS[BOARD] = [*BOARD_DEFS[BOARD], f'-DSMK_MODEL="{MODELS[model]}"']
         BOARD_PREFIX[BOARD] = BOARD_PREFIX[BOARD].replace(MODELS["pro"], MODELS[model])
         suffix += "-" + model
-    PRODUCT = BOARD_PREFIX[BOARD] + "00000"
+    PRODUCT = BOARD_PREFIX[BOARD] + ("00000" if BOARD == "fm1" else "0000")
     name = f"cozy-fm1-games{suffix}.fwsc"
     if a.release:
         m = re.fullmatch(r"(\d+)\.(\d+)(?:\.(\d+))?(-[A-Za-z0-9]+)?", a.release)
         if not m:
             raise SystemExit(f"--release {a.release}: use X.Y, X.Y.Z or X.Y-suffix")
-        PRODUCT = f"{BOARD_PREFIX[BOARD]}{int(m[1]):02d}{int(m[2]):02d}{int(m[3] or 0):02d}"
+        maj, mino, pat = int(m[1]), int(m[2]), int(m[3] or 0)
+        if BOARD == "fm1":
+            PRODUCT = f"{BOARD_PREFIX[BOARD]}{maj % 10}{mino:02d}{pat:02d}"
+        else:
+            PRODUCT = f"{BOARD_PREFIX[BOARD]}{maj % 10}{mino:02d}{pat % 10}"
         VERSION = m[1] + "." + m[2] + (("." + m[3]) if m[3] else "")
         name = f"cozy-fm1-games-{a.release}{suffix}.fwsc"
     fm1pkg_make.SDK = a.sdk

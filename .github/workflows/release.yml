@@ -57,27 +57,27 @@ jobs:
           BOARD=smk37 MODEL=elite sh build.sh --release "$V"
           BOARD=smk37 MODEL=mke sh build.sh --release "$V"
           sh build.sh --release "$V"
-          ls -l build/dinghy-"$V"*.fwsc
-          (cd build && sha256sum dinghy-"$V"*.fwsc > SHA256SUMS)
+          ls -l build/cozy-fm1-games-"$V"*.fwsc
+          (cd build && sha256sum cozy-fm1-games-"$V"*.fwsc > SHA256SUMS)
 
       - uses: actions/upload-artifact@v4
         with:
-          name: dinghy-fwsc
-          path: build/dinghy*.fwsc
+          name: cozy-fm1-games-fwsc
+          path: build/cozy-fm1-games*.fwsc
           if-no-files-found: error
 
       - name: Attest the packages (tags only)
         if: github.ref_type == 'tag'
         uses: actions/attest-build-provenance@v2
         with:
-          subject-path: build/dinghy-[0-9]*.fwsc
+          subject-path: build/cozy-fm1-games-[0-9]*.fwsc
 
-      # (the release builds only, not the dev ones: dinghy-smk37.fwsc – no comment inside the block below: it would be part of the pattern)
+      # (the release builds only, not the dev ones: cozy-fm1-games-smk37.fwsc – no comment inside the block below: it would be part of the pattern)
       - name: Release (tags only)
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            build/dinghy-[0-9]*.fwsc
+            build/cozy-fm1-games-[0-9]*.fwsc
             build/SHA256SUMS
           generate_release_notes: true

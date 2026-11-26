@@ -16,7 +16,7 @@ CC="${CC:-cc} -O1 -Wall -Wno-unused-function"
 fail=0
 run() { echo "== $1"; shift; "$@" || fail=1; }
 
-[ -f build/dinghy.fwsc ] || { echo "run ./build.sh first"; exit 1; }
+[ -f build/cozy-fm1-games.fwsc ] || { echo "run ./build.sh first"; exit 1; }
 
 run "FM-1 app on the host: the default script plays, screens and sound" sh tests/run_host.sh
 run "SMK-37 app on the host: the default script" env BOARD=smk37 sh tests/run_host.sh
@@ -29,13 +29,13 @@ $CC -o "$OUT/smk_wheel_test" tests/smk_wheel_test.c
 run "SMK-37 pitch wheel: the bend is back to 0 at rest, however slowly the wheel was moved" "$OUT/smk_wheel_test"
 
 $CC -o "$OUT/ota_test" tests/ota_test.c
-run "M-UPGRADE entry (FM-1)" "$OUT/ota_test" build/dinghy.fwsc
+run "M-UPGRADE entry (FM-1)" "$OUT/ota_test" build/cozy-fm1-games.fwsc
 head -c 60000 build/dinghy.bin > "$OUT/old_app.bin"
 python3 tools/fm1pkg_make.py "$OUT/old_app.bin" build/loader/ota.bin "$OUT/old.fwsc" >/dev/null
 $CC -o "$OUT/ldr_screen_test" tests/ldr_screen_test.c
 run "update loader's screen (from Skiff): UPDATE MODE, WRITING and its bar, UPDATE FAILED" "$OUT/ldr_screen_test" "$OUT"
 $CC -o "$OUT/ldr_test" tests/ldr_test.c
-run "update loader (FM-1): other app -> this build" "$OUT/ldr_test" "$OUT/old.fwsc" build/dinghy.fwsc
+run "update loader (FM-1): other app -> this build" "$OUT/ldr_test" "$OUT/old.fwsc" build/cozy-fm1-games.fwsc
 
 # SMK-37: the OTA staging and the loader windows on SMK-layout packages (made here from the FM-1 binaries: only the
 # layout and the protocol are under test), then the real SMK packages
@@ -52,12 +52,13 @@ done
 $CC -DBOARD_SMK37=1 -o "$OUT/ldr_test_smk" tests/ldr_test.c
 run "update loader, SMK-37: app area 0x4000-0x9CFFF, protected ranges untouched" "$OUT/ldr_test_smk" "$OUT/smk_old.fwsc" "$OUT/smk_new.fwsc"
 found=0
-for m in ":SMK-37 Pro_99" "-elite:SMK-37 Elite_99" "-mke:MKE-P37_99"; do
-    for f in build/dinghy*-smk37${m%%:*}.fwsc; do
+for m in ":SMK-37 Pro_027" "-elite:SMK-37 Elite_027" "-mke:MKE-P37_027"; do
+    for f in build/cozy-fm1-games*-smk37${m%%:*}.fwsc; do
         [ -f "$f" ] || continue
         found=1
-        v=$(echo "$f" | sed -n 's/.*dinghy-[0-9]\.\([0-9]\).*/\1/p'); v=${v:-0}
-        run "SMK-37 package $f: layout, identity ${m#*:}$v, the loader marker" python3 tests/smk_pkg_test.py "$f" "${m#*:}$v"
+        v=$(echo "$f" | sed -n 's/.*cozy-fm1-games-\([0-9]\+\)\.\([0-9]\+\).*/\1\2/p')
+        if [ -n "$v" ]; then id="${m#*:}$(printf '%01d%02d0' "${v%?}" "${v#?}")"; else id="${m#*:}0000"; fi
+        run "SMK-37 package $f: layout, identity $id, the loader marker" python3 tests/smk_pkg_test.py "$f" "$id"
     done
 done
 [ "$found" = 1 ] || echo "(no SMK-37 packages in build/: BOARD=smk37 sh build.sh first)"
