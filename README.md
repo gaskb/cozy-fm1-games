@@ -1,5 +1,7 @@
 # Cozy FM-1 Games (`cozy-fm1-games`)
 
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support-orange?style=flat&logo=kofi)](https://ko-fi.com/gaskb)
+
 10-in-1 Arcade firmware for the **M-VAVE FM-1** pocket synthesizer, built on [Dinghy](https://github.com/zvenson/dinghy) (Felucca / SLOOP platform).
 
 ![FM-1 Arcade on Real Hardware](photos/fm1-arcade-demo.gif)
@@ -9,6 +11,14 @@
 | Arcade Menu | OutRun Title | OutRun Gameplay |
 | :---: | :---: | :---: |
 | ![Menu](photos/menu.gif) | ![OutRun Title](photos/outrun-title.gif) | ![OutRun Play](photos/outrun-play.gif) |
+
+## What's New in `v0.8`
+
+- **Per-game LED mapping**: active buttons and piano keys light up automatically for each game and menu screen.
+- **10-in-1 Arcade**: Snake, Tetris (Korobeiniki BGM), Arkanoid (`KNOB1` paddle), OutRun (4-voice FM + drums OST), Synth Hero (7/12-key rhythm), Frogger, Galaga, Pac-Man, Chrome Dino Run, and Flappy Bird.
+- **Unique identity (`FM-1_02700800`)** and `fmhub.json` ready for The Firmware Hub.
+
+See [CHANGELOG.md](CHANGELOG.md) for the full version history.
 
 ## Games Included
 
@@ -73,3 +83,7 @@ Output package: `build/cozy-fm1-games-0.8.fwsc` (identity `FM-1_02700800`).
 
 - Built on [Dinghy](https://github.com/zvenson/dinghy) by zvenson, based on [Felucca](https://github.com/hugelton/Felucca) (Leo Kuroshita / Hügelton Instruments) and [SLOOP](https://github.com/isod89/sloop-fm1) (isod89).
 - Licensed under **GPL-3.0-only** — see [LICENSE](LICENSE) and [LICENSING.md](LICENSING.md).
+
+## Support
+
+Cozy FM-1 Games is free and open-source. If you enjoy it on your FM-1, feel free to [buy me a coffee on Ko-fi](https://ko-fi.com/gaskb) ☕!
