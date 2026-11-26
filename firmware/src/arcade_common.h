@@ -62,3 +62,63 @@ static void save_scores(void)
 {
     settings_save(&save_data, sizeof save_data);
 }
+
+/* Light up useful buttons (except BTN_PLAY) and keyboard keys for the active screen */
+static void arcade_update_leds(uint8_t game)
+{
+    uint32_t btn_mask = 0u;
+    uint32_t key_mask = 0u;
+    uint32_t i;
+
+    if (game == GAME_MENU) {
+        btn_mask = (1u << BTN_ENV) | (1u << BTN_SEL);
+        key_mask = MASK_KEY_UP | MASK_KEY_D | MASK_KEY_E | MASK_KEY_F;
+    } else {
+        btn_mask = (1u << BTN_HOME);
+        if (game == GAME_SNAKE) {
+            btn_mask |= (1u << BTN_OCT_DOWN) | (1u << BTN_OCT_UP) |
+                        (1u << BTN_ENV) | (1u << BTN_SEL) |
+                        (1u << BTN_FX) | (1u << BTN_LFO);
+            key_mask = MASK_KEY_C | MASK_KEY_D | MASK_KEY_E | MASK_KEY_UP;
+        } else if (game == GAME_TETRIS) {
+            btn_mask |= (1u << BTN_OCT_DOWN) | (1u << BTN_OCT_UP) |
+                        (1u << BTN_ENV) | (1u << BTN_SEL) |
+                        (1u << BTN_FX) | (1u << BTN_REC);
+            key_mask = MASK_KEY_C | MASK_KEY_D | MASK_KEY_E | MASK_KEY_F | MASK_KEY_UP;
+        } else if (game == GAME_ARKANOID) {
+            btn_mask |= (1u << BTN_OCT_DOWN) | (1u << BTN_OCT_UP);
+            key_mask = MASK_KEY_C | MASK_KEY_E | MASK_KEY_F | MASK_KEY_UP;
+        } else if (game == GAME_OUTRUN) {
+            btn_mask |= (1u << BTN_OCT_DOWN) | (1u << BTN_OCT_UP) |
+                        (1u << BTN_ENV) | (1u << BTN_SEL) | (1u << BTN_FX);
+            key_mask = MASK_KEY_C | MASK_KEY_D | MASK_KEY_E | MASK_KEY_F | MASK_KEY_UP;
+        } else if (game == GAME_HERO) {
+            btn_mask |= (1u << BTN_OCT_DOWN) | (1u << BTN_OCT_UP);
+            /* All C..B white keys (C4..B4 and C5..E5) */
+            key_mask = (1u << 7) | (1u << 9) | (1u << 11) | (1u << 12) |
+                       (1u << 14) | (1u << 16) | (1u << 18) |
+                       (1u << 19) | (1u << 21) | (1u << 23) | (1u << 24) | (1u << 26);
+        } else if (game == GAME_FROGGER || game == GAME_PACMAN) {
+            btn_mask |= (1u << BTN_OCT_DOWN) | (1u << BTN_OCT_UP) |
+                        (1u << BTN_ENV) | (1u << BTN_SEL);
+            key_mask = MASK_KEY_C | MASK_KEY_D | MASK_KEY_E | MASK_KEY_UP;
+        } else if (game == GAME_GALAGA) {
+            btn_mask |= (1u << BTN_OCT_DOWN) | (1u << BTN_OCT_UP) | (1u << BTN_ENV);
+            key_mask = MASK_KEY_C | MASK_KEY_E | MASK_KEY_F | MASK_KEY_UP;
+        } else if (game == GAME_DINO) {
+            btn_mask |= (1u << BTN_ENV) | (1u << BTN_SEL);
+            key_mask = MASK_KEY_C | MASK_KEY_D | MASK_KEY_E | MASK_KEY_F | MASK_KEY_UP;
+        } else if (game == GAME_FLAPPY) {
+            btn_mask |= (1u << BTN_ENV);
+            key_mask = MASK_KEY_C | MASK_KEY_D | MASK_KEY_E | MASK_KEY_F | MASK_KEY_UP;
+        }
+    }
+
+    for (i = 0u; i < FM1_NBTN; i++) {
+        if (i == BTN_PLAY) continue;
+        fm1_led_key(i, (btn_mask & (1u << i)) ? 1 : 0);
+    }
+    for (i = 0u; i < 27u; i++) {
+        fm1_led_key(14u + i, (key_mask & (1u << i)) ? 1 : 0);
+    }
+}

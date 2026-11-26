@@ -70,6 +70,7 @@ static void draw_menu(void)
 
     bgm_set(0u);
     fm1_led_key(BTN_PLAY, 0);
+    arcade_update_leds(GAME_MENU);
     lcd_fill(0, 0, 240, 240, C_BLACK);
     draw_text_box(12, 10, 216, &FONT_L, "ARCADE", RGB(255, 215, 70), 1);
     draw_text_box(12, 44, 216, &FONT_S, "FM-1 10-IN-1  v" APP_VER, RGB(130, 145, 160), 1);
@@ -106,6 +107,7 @@ static void launch_game(uint8_t sel)
     else if (sel == 7u) { current_game = GAME_PACMAN;   pacman_enter(); }
     else if (sel == 8u) { current_game = GAME_DINO;     dino_enter(); }
     else                { current_game = GAME_FLAPPY;   flappy_enter(); }
+    arcade_update_leds(current_game);
 }
 
 static void app_main(void)
