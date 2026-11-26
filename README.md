@@ -41,15 +41,33 @@ All high scores are saved to flash (`STORE_MAGIC = "SNK1"`). Press **`HOME`** fr
 | **Arkanoid** | `PLAY` / `C#` / `F` | Launch ball / Pause |
 | **Any game** | `HOME` | Return to Arcade menu |
 
+## Per-Game LED Map (`v0.8`)
+
+Starting in `v0.8`, active buttons and piano keys light up automatically to match the current screen (`arcade_update_leds` in `firmware/src/arcade_common.h`; `PLAY` lights up while a game is running, and `HOME` lights up in every game to return to the menu):
+
+| Screen | Lit Buttons (besides `PLAY` / `HOME`) | Lit Piano Keys |
+| --- | --- | --- |
+| **Menu** | `ENV`, `SEL` | `C#`, `D#`, `D`, `E`, `F` |
+| **Snake** | `OCT−`, `OCT+`, `ENV`, `SEL`, `FX`, `LFO` | `C`, `C#`, `D`, `D#`, `E` |
+| **Tetris** | `OCT−`, `OCT+`, `ENV`, `SEL`, `FX`, `REC` | `C`, `C#`, `D`, `D#`, `E`, `F` |
+| **Arkanoid** | `OCT−`, `OCT+` | `C`, `C#`, `D#`, `E`, `F` |
+| **OutRun** | `OCT−`, `OCT+`, `ENV`, `SEL`, `FX` | `C`, `C#`, `D`, `D#`, `E`, `F` |
+| **Synth Hero** | `OCT−`, `OCT+` | All white keys `C..B` (`C4..B4`, `C5..G5`) |
+| **Frogger** | `OCT−`, `OCT+`, `ENV`, `SEL` | `C`, `C#`, `D`, `D#`, `E` |
+| **Galaga** | `OCT−`, `OCT+`, `ENV` | `C`, `C#`, `D#`, `E`, `F` |
+| **Pac-Man** | `OCT−`, `OCT+`, `ENV`, `SEL` | `C`, `C#`, `D`, `D#`, `E` |
+| **Dino Run** | `ENV`, `SEL` | `C`, `C#`, `D`, `D#`, `E`, `F` |
+| **Flappy Bird** | `ENV` | `C`, `C#`, `D`, `D#`, `E`, `F` |
+
 ## Build
 
 Requires Docker (on macOS/Windows) or Linux x86-64, the JieLi toolchain (`./tools/get_toolchain.sh`), and `fw-AC79_AIoT_SDK`:
 
 ```sh
-JIELI_TOOLCHAIN="$HOME/.jieli/toolchain" AC79_SDK="$HOME/fw-AC79_AIoT_SDK" ./build.sh --release 0.3
+JIELI_TOOLCHAIN="$HOME/.jieli/toolchain" AC79_SDK="$HOME/fw-AC79_AIoT_SDK" ./build.sh --release 0.8
 ```
 
-Output package: `build/cozy-fm1-games-0.3.fwsc` (identity `FM-1_027000300`).
+Output package: `build/cozy-fm1-games-0.8.fwsc` (identity `FM-1_02700800`).
 
 ## Credits & License
 

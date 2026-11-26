@@ -55,13 +55,13 @@ SDK_SHA256 = {
 }
 
 BOARD = "fm1"                       # fm1 (default) or smk37: BOARD env or --board
-BOARD_PREFIX = {"fm1": "FM-1_027", "smk37": "SMK-37 Pro_027"}   # identity: prefix + minor (0: a dev build)
+BOARD_PREFIX = {"fm1": "FM-1_027", "smk37": "SMK-37 Pro_027"}   # identity: prefix + XXYYZZ
 BOARD_DEFS = {"fm1": [], "smk37": ["-DBOARD_SMK37=1"]}
 MODELS = {"pro": "SMK-37 Pro", "elite": "SMK-37 Elite", "mke": "MKE-P37"}   # smk37: one keyboard, three names
-DATA_FAMILY = "COZYFM"               # the SMK store's owner tag (store.h): 1..7 of A-Z 0-9
-SCREEN_NAME = "COZY-FM1"           # the update loader's screen (FM-1, ldr_screen.c): the name and its colour (RGB565)
+DATA_FAMILY = "COZYFM"              # the SMK store's owner tag (store.h): 1..7 of A-Z 0-9
+SCREEN_NAME = "COZY-FM1"            # the update loader's screen (FM-1, ldr_screen.c): the name and its colour (RGB565)
 SCREEN_COLOUR = 0x2F66              # arcade green
-PRODUCT = "FM-1_02700000"                # cozy-fm1-games: 96N
+PRODUCT = "FM-1_02700000"          # cozy-fm1-games: 027XYYZZ
 VERSION = None                      # APP_VER for release builds
 
 
@@ -318,14 +318,14 @@ def main():
         BOARD_DEFS[BOARD] = [*BOARD_DEFS[BOARD], f'-DSMK_MODEL="{MODELS[model]}"']
         BOARD_PREFIX[BOARD] = BOARD_PREFIX[BOARD].replace(MODELS["pro"], MODELS[model])
         suffix += "-" + model
-    PRODUCT = BOARD_PREFIX[BOARD] + "0"
+    PRODUCT = BOARD_PREFIX[BOARD] + "00000"
     name = f"cozy-fm1-games{suffix}.fwsc"
-    if a.release:                   # one digit each: the identity has room for two (X.Y; a .Z only in the text)
-        m = re.fullmatch(r"(\d)\.(\d)(\.\d)?(-[A-Za-z0-9]+)?", a.release)
+    if a.release:
+        m = re.fullmatch(r"(\d+)\.(\d+)(?:\.(\d+))?(-[A-Za-z0-9]+)?", a.release)
         if not m:
-            raise SystemExit(f"--release {a.release}: use X.Y, X.Y.Z or X.Y-suffix, one digit each")
-        PRODUCT = BOARD_PREFIX[BOARD] + m[2]
-        VERSION = m[1] + "." + m[2] + (m[3] or "")
+            raise SystemExit(f"--release {a.release}: use X.Y, X.Y.Z or X.Y-suffix")
+        PRODUCT = f"{BOARD_PREFIX[BOARD]}{int(m[1]):02d}{int(m[2]):02d}{int(m[3] or 0):02d}"
+        VERSION = m[1] + "." + m[2] + (("." + m[3]) if m[3] else "")
         name = f"cozy-fm1-games-{a.release}{suffix}.fwsc"
     fm1pkg_make.SDK = a.sdk
     for rel, sha in SDK_SHA256.items():          # fail early without the SDK
