@@ -2,6 +2,11 @@
 
 All notable changes to **Cozy FM-1 Games** are documented in this file.
 
+## [0.8.2] - 2026-11-27
+
+### Fixed
+- **4-digit High Score HUD**: extended `HI` display from 3 digits (`999`) to 4 digits (`9999`) in **Arkanoid**, **Frogger**, **Galaga**, and **Pac-Man** (`FM-1_02700802`).
+
 ## [0.8.1] - 2026-11-27
 
 ### Changed

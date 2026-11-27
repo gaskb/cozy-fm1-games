@@ -58,10 +58,10 @@ static void frg_reset_frog(void)
 static void frg_draw(void)
 {
     uint32_t r, strip;
-    char h1[12] = "SCR 0000", h2[12] = "L3   HI 000";
+    char h1[12] = "SCR 0000", h2[12] = "L3  HI 0000";
     fmt_num(h1 + 4, frg.score, 4u);
     h2[1] = (char)('0' + (frg.lives % 10u));
-    fmt_num(h2 + 8, save_data.hi_frogger > 999u ? 999u : save_data.hi_frogger, 3u);
+    fmt_num(h2 + 7, save_data.hi_frogger > 9999u ? 9999u : save_data.hi_frogger, 4u);
 
     for (strip = 0u; strip < 2u; strip++) {
         int32_t y_off = (int32_t)(strip * 120u);

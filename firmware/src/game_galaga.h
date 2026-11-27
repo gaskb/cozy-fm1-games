@@ -49,10 +49,10 @@ static void gal_init_wave(void)
 static void gal_draw(void)
 {
     uint32_t strip, r, c, i;
-    char h1[12] = "SCR 0000", h2[12] = "L3   HI 000";
+    char h1[12] = "SCR 0000", h2[12] = "L3  HI 0000";
     fmt_num(h1 + 4, gal.score, 4u);
     h2[1] = (char)('0' + (gal.lives % 10u));
-    fmt_num(h2 + 8, save_data.hi_galaga > 999u ? 999u : save_data.hi_galaga, 3u);
+    fmt_num(h2 + 7, save_data.hi_galaga > 9999u ? 9999u : save_data.hi_galaga, 4u);
 
     for (strip = 0u; strip < 2u; strip++) {
         int32_t y_off = (int32_t)(strip * 120u);

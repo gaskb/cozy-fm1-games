@@ -48,11 +48,11 @@ static struct {
 
 static void ark_draw_hud(void)
 {
-    char s1[12] = "SCR 0000", s2[16] = "LV1  L3  HI000";
+    char s1[12] = "SCR 0000", s2[16] = "V1 L3 HI0000";
     fmt_num(s1 + 4, ark.score, 4u);
-    s2[2] = (char)('0' + (ark.level % 10u));
-    s2[6] = (char)('0' + (ark.lives % 10u));
-    fmt_num(s2 + 11, save_data.hi_arkanoid > 999u ? 999u : save_data.hi_arkanoid, 3u);
+    s2[1] = (char)('0' + (ark.level % 10u));
+    s2[4] = (char)('0' + (ark.lives % 10u));
+    fmt_num(s2 + 8, save_data.hi_arkanoid > 9999u ? 9999u : save_data.hi_arkanoid, 4u);
     lcd_fill(0, 0, 240, 24, C_BLACK);
     draw_text_box(6, 4, 96, &FONT_S, s1, RGB(140, 220, 255), 0);
     draw_text_box(102, 4, 132, &FONT_S, s2, RGB(255, 215, 70), 2);
