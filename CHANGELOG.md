@@ -2,6 +2,11 @@
 
 All notable changes to **Cozy FM-1 Games** are documented in this file.
 
+## [0.8.1] - 2026-11-27
+
+### Changed
+- **8-digit package identity (`FM-1_02700801`)**: `FM-1_027xyyzz` format for FM-1 (`SMK-37 *_027xyyz` for SMK-37) for full compatibility with The Firmware Hub.
+
 ## [0.8] - 2026-11-26
 
 ### Added

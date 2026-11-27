@@ -12,11 +12,11 @@
 | :---: | :---: | :---: |
 | ![Menu](photos/menu.gif) | ![OutRun Title](photos/outrun-title.gif) | ![OutRun Play](photos/outrun-play.gif) |
 
-## What's New in `v0.8`
+## What's New in `v0.8.1`
 
+- **8-digit package identity (`FM-1_02700801`)**: `FM-1_027xyyzz` format (3–8 digits compatible with The Firmware Hub) and `fmhub.json` manifest.
 - **Per-game LED mapping**: active buttons and piano keys light up automatically for each game and menu screen.
 - **10-in-1 Arcade**: Snake, Tetris (Korobeiniki BGM), Arkanoid (`KNOB1` paddle), OutRun (4-voice FM + drums OST), Synth Hero (7/12-key rhythm), Frogger, Galaga, Pac-Man, Chrome Dino Run, and Flappy Bird.
-- **Unique identity (`FM-1_02700800`)** and `fmhub.json` ready for The Firmware Hub.
 
 See [CHANGELOG.md](CHANGELOG.md) for the full version history.
 
@@ -74,10 +74,10 @@ Starting in `v0.8`, active buttons and piano keys light up automatically to matc
 Requires Docker (on macOS/Windows) or Linux x86-64, the JieLi toolchain (`./tools/get_toolchain.sh`), and `fw-AC79_AIoT_SDK`:
 
 ```sh
-JIELI_TOOLCHAIN="$HOME/.jieli/toolchain" AC79_SDK="$HOME/fw-AC79_AIoT_SDK" ./build.sh --release 0.8
+JIELI_TOOLCHAIN="$HOME/.jieli/toolchain" AC79_SDK="$HOME/fw-AC79_AIoT_SDK" ./build.sh --release 0.8.1
 ```
 
-Output package: `build/cozy-fm1-games-0.8.fwsc` (identity `FM-1_02700800`).
+Output package: `build/cozy-fm1-games-0.8.1.fwsc` (identity `FM-1_02700801`).
 
 ## Credits & License
 
