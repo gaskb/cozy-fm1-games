@@ -1,7 +1,8 @@
 {
-  "what": "10-in-1 retro arcade multicart for the M-VAVE FM-1: Snake, Tetris (Korobeiniki BGM), Arkanoid (KNOB1 paddle), OutRun (4-voice FM + drums MIDI OST), Synth Hero (7/12-key rhythm), Frogger, Galaga, Pac-Man, Chrome Dino Run, and Flappy Bird, with per-game LED lighting and saved high scores.",
+  "what": "10-in-1 retro arcade multicart for the M-VAVE FM-1: Snake, Tetris (Korobeiniki BGM), Arkanoid (KNOB1 paddle), OutRun (4-voice FM + drums MIDI OST), Synth Hero (7/12-key rhythm), Frogger, Galaga, Pac-Man, Chrome Dino Run, and Flappy Bird, with per-game LEDs and saved high scores.",
   "author": "Gas (gaskb)",
-  "kind": "other",
+  "kinds": ["other"],
   "color": "#FFD746",
-  "image": "photos/fm1-arcade-demo.gif"
+  "image": "photos/card.webp",
+  "sounds": "own"
 }
